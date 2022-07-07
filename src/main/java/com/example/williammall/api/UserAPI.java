@@ -1,5 +1,6 @@
 package com.example.williammall.api;
 
+import com.example.williammall.api.param.UserLoginParam;
 import com.example.williammall.api.param.UserRegisterParam;
 import com.example.williammall.common.ServiceResultEnum;
 import com.example.williammall.service.UserService;
@@ -48,5 +49,13 @@ public class UserAPI {
         }
         //注册失败
         return resultGenerator.genFailResult(registerResult);
+    }
+
+    @PostMapping("/user/register")
+    public Result login(@RequestBody @Valid UserLoginParam param){
+        if (numberUtil.isNotPhone(param.getLoginName())){
+            return resultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_IS_NOT_PHONE.getResult());
+        }
+
     }
 }
